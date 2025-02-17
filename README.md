@@ -1,4 +1,4 @@
-# Unable to generate links. Try after turning on hotspot Resolved
+# Unable to generate links. Try after turning on hotspot Resolved.
 ## zphisher not generating link .
 ## In Cloudflared... the link not created ..
 ![image](https://github.com/user-attachments/assets/ad62ad0a-9b15-440b-bd4a-3cb84b13b9fa)
