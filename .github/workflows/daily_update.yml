@@ -1,11 +1,11 @@
 name: Automated Daily Update
 
 on:
-  
   schedule:
-    - cron: '30 0 * * *'
+    # Runs at 00:30 UTC every day
+    - cron: '30 0 * * *' 
   workflow_dispatch:
-  permissions:
+permissions:
   contents: write
 
 jobs:
@@ -27,15 +27,19 @@ jobs:
           
           echo "Last Auto-Update: $(date)" > ${MARKER_FILE}
           
+          # Check if the file is tracked but modified, or is a new untracked file
+          # We check if the file is listed in 'git status --porcelain' (M=modified, A=added, ?=untracked)
+          # Use `>>` to append the output to the GITHUB_OUTPUT file
           if git status --porcelain | grep -q "${MARKER_FILE}"; then
-            echo "::set-output name=commit_needed::true"
+            echo "commit_needed=true" >> $GITHUB_OUTPUT 
           else
-            echo "::set-output name=commit_needed::false"
+            echo "commit_needed=false" >> $GITHUB_OUTPUT
           fi
           
           git add ${MARKER_FILE}
       
       - name: Create Automated Commit (Hidden Comment)
+        # Access the output correctly: steps.<step_id>.outputs.<output_name>
         if: steps.marker_update.outputs.commit_needed == 'true'
         run: |
           git commit -m "Automated daily maintenance: Update hidden marker for freshness"
@@ -45,4 +49,4 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.ref_name }}
+          branch: ${{ github.ref_name }} # Uses the name of the branch that triggered the workflow
