@@ -5,8 +5,7 @@
 
 ![image](https://github.com/user-attachments/assets/4424bed9-2d5e-49bb-9e49-00b776355152)
  # ..                                                                                ..
- ## see this video for batter clarification.
- [![Watch the video](https://img.youtube.com/vi/ki_FHOJxrPg/hqdefault.jpg)](https://youtu.be/ki_FHOJxrPg))
+
 
  ## Install cloudflared manually
 ## run zphisher on localhost
